@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="player">
+        <div class="player__box">
+            <div class="player__audioInfo">
+                <h2 class="player__title">ya rajaee</h2>
+                <p class="player__artist">Al Muqit</p>
+                <div class="player__imgWrapper">
+                    <img class="player__img " src="images/audio2.jpg" alt="">
+                </div>
+            </div>
+            <div class="player__controls">
+                <i class="fa-solid fa-backward prev"></i>
+                <i class="fa-solid fa-play play_stop"></i>
+                <i class="fa-solid fa-forward next"></i>
+                <audio src="images/audio2.mp3"></audio>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const audio = document.querySelector('audio');
+        const play_stop = document.querySelector('.fa-play');
+        const player__img = document.querySelector('.player__img');
+        const player__title = document.querySelector('.player__title');
+        const player__artist = document.querySelector('.player__artist');
+        const prev = document.querySelector('.prev');
+        const next = document.querySelector('.next');
+
+        const album = [
+            {
+                name: 'audio1' ,
+                title: 'ya rajaee' ,
+                artist: 'Al Muqit' ,
+            },
+            {
+                name: 'audio2' ,
+                title: 'fil qalbee' ,
+                artist: 'Al Muqit' ,
+            },
+            {
+                name: 'audio3' ,
+                title: 'sabeel al damu',
+                artist: 'Al Muqit' ,
+            }
+        ]
+        console.log(album)
+
+        let isPlaying = false;
+
+        const playAudio = (() => {
+            isPlaying = true;
+            audio.play();
+            player__img.classList.add('bigSmall')
+            play_stop.classList.replace('fa-play', 'fa-pause');
+            // console.log(isPlaying);
+        });
+
+        const pauseAudio = (() => {
+            isPlaying = false;
+            audio.pause();
+            player__img.classList.remove('bigSmall');
+            play_stop.classList.replace('fa-pause', 'fa-play')
+        })
+
+
+        play_stop.addEventListener('click', () => {
+            // if (isPlaying) {
+            //     pauseAudio();
+            //     console.log('is', isPlaying)
+            // } else {
+            //     console.log('else', isPlaying)
+            //     playAudio();
+            // }
+            isPlaying ? pauseAudio() : playAudio() ;
+        })
+        var count = 0;
+        next.addEventListener('click' , () => {
+            if(count<album.length-1){
+                count = count + 1;
+            }else{
+                count = 0;
+            }
+            // console.log(count)
+            audio.src.replace(album[count].name);
+            player__title.innerHTML = album[count].title;
+
+        })
+        prev.addEventListener('click' , ()=>{
+            if(count <= album.length-1  ){
+                count = count - 1;
+                console.log('if',count)
+            }else{
+                count = count + 1;
+            }
+            // console.log(count)
+            audio.src.replace(album[count].name);
+            player__title.innerHTML = album[count].title;
+        })
+
+        // <i class="fa-solid fa-pause"></i>
+    </script>
+</body>
+
+</html>
