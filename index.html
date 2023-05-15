@@ -20,7 +20,7 @@
                 <h2 class="player__title">ya rajaee</h2>
                 <p class="player__artist">Al Muqit</p>
                 <div class="player__imgWrapper">
-                    <img class="player__img " src="images/audio2.jpg" alt="">
+                    <img class="player__img " src="images/audio1.jpg" alt="">
                 </div>
             </div>
             <div class="player__controls">
@@ -94,6 +94,7 @@
         const loadAlbum = (album) => {
      
             audio.src = `images/${album.name}.mp3`;
+            player__img.src = `images/${album.name}.jpg`
             player__title.textContent = album.title;
             player__img.classList.add('bigSmall')
             play_stop.classList.replace('fa-play', 'fa-pause');
