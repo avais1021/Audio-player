@@ -23,6 +23,15 @@
                     <img class="player__img " src="images/audio1.jpg" alt="">
                 </div>
             </div>
+            <div class="progressContainer">
+                <div class="timeBox">
+                    <div class="currTime">0:00</div>
+                    <div class="duration">04:52s</div>
+                </div>
+                <div class="progressbar">
+                    <div class="moving"></div>
+                </div>
+            </div>
             <div class="player__controls">
                 <i class="fa-solid fa-backward prev"></i>
                 <i class="fa-solid fa-play play_stop"></i>
@@ -40,22 +49,26 @@
         const player__artist = document.querySelector('.player__artist');
         const prev = document.querySelector('.prev');
         const next = document.querySelector('.next');
+        var moving = document.querySelector('.moving');
+        let currTime = document.querySelector('.currTime')
+        let totalDuration = document.querySelector('.duration');
+        // duration.textContent='abc';
 
         const album = [
             {
-                name:'audio1' ,
-                title: 'ya rajaee' ,
-                artist: 'Al Muqit' ,
+                name: 'audio1',
+                title: 'ya rajaee',
+                artist: 'Al Muqit',
             },
             {
-                name:'audio2' ,
-                title: 'fil qalbee' ,
-                artist: 'Al Muqit' ,
+                name: 'audio2',
+                title: 'fil qalbee',
+                artist: 'Al Muqit',
             },
             {
-                name:'audio3' ,
+                name: 'audio3',
                 title: 'sabeel al damu',
-                artist: 'Al Muqit' ,
+                artist: 'Al Muqit',
             }
         ]
         console.log(album)
@@ -86,13 +99,13 @@
             //     console.log('else', isPlaying)
             //     playAudio();
             // }
-            isPlaying ? pauseAudio() : playAudio() ;
+            isPlaying ? pauseAudio() : playAudio();
         })
 
-    
+
 
         const loadAlbum = (album) => {
-     
+
             audio.src = `images/${album.name}.mp3`;
             player__img.src = `images/${album.name}.jpg`
             player__title.textContent = album.title;
@@ -102,7 +115,7 @@
         }
 
         // loadAlbum(album[1]);
-       var albumIndex = 0;
+        var albumIndex = 0;
 
         const nextAudio = () => {
             albumIndex = (albumIndex + 1) % album.length;
@@ -117,8 +130,41 @@
             isPlaying = true
         }
 
-        prev.addEventListener('click' , prevAudio);
-        next.addEventListener('click' , nextAudio);
+        // progress bar 
+        audio.addEventListener('timeupdate', (event) => {
+            // console.log(event);
+            const { currentTime, duration } = event.srcElement;
+            console.log('curr', currentTime);
+            console.log('dura', duration);
+            let progress_time = (currentTime / duration) * 100;
+            moving.style.width = `${progress_time}%`;
+            //    ----
+            let mint = Math.floor(duration / 60);
+            let sec = Math.floor(duration % 60);
+            if(sec < 10){
+                sec = `0${sec}`;
+            }
+            console.log('mint', mint, 'sec', sec)
+            if (duration) {
+                totalDuration.textContent = `0${mint}:${sec}s`;
+                //    -----
+                let currMint = Math.floor(currentTime / 60);
+                let currSec = Math.floor(currentTime % 60);
+                // if(currSec < 10){
+                //         currSec = `0${currSec}`;
+                // }
+                if(currSec < 10){
+                    currTime.textContent = `0${currMint}:0${currSec}`;
+                }
+                currTime.textContent = `0${currMint}:${currSec}`;
+            }
+        })
+                // audio end call next audio 
+                audio.addEventListener('ended' , nextAudio)
+
+        prev.addEventListener('click', prevAudio);
+        next.addEventListener('click', nextAudio);
+
     </script>
 </body>
 
