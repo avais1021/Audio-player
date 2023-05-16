@@ -163,8 +163,9 @@
         })
         // progress click 
         progressbar.addEventListener('click' , (e)=>{
+            // console.log('progress click' , progressbar.clientWidth);
             const {duration} = audio;
-            let move_progress = (e.offsetX/event.srcElement.clientWidth) * duration;
+            let move_progress = (e.offsetX/progressbar.clientWidth) * duration;
             console.log('move progress',move_progress);
             audio.currentTime = (move_progress)
         })
