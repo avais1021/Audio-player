@@ -67,6 +67,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    -webkit-tap-highlight-color: transparent;
 }
 .player__controls .fa-play{
     padding-left: 4px;
@@ -102,6 +103,7 @@
     position: relative;
     border-radius: 10px;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 .moving{
     position: absolute;
